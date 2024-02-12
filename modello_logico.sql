@@ -10,13 +10,13 @@
 
 -- FATTURE(id*, data, importo, paese, via, civico, cap, citta, provincia);
 
+ALTER SESSION SET NLS_DATE_FORMAT='DD-MM-YYYY HH24:MI:SS'
 CREATE SEQUENCE caselli_id_sequence START WITH 1;
 
 CREATE TABLE CASELLI (
     id INTEGER DEFAULT caselli_id_sequence.nextval,
     nome VARCHAR2(60) NOT NULL,
     numero INTEGER NOT NULL,
-
     CONSTRAINT PK_CASELLI PRIMARY KEY (id)
 );
 
