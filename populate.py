@@ -20,7 +20,7 @@ fine_tragitti = datetime.strptime('31-12-2023', '%d-%m-%Y')
 
 fmt_clienti = "INSERT INTO CLIENTI (nome, cognome, email, password, codice_fiscale, data_nascita, luogo_nascita) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s');"
 fmt_dispositivi = "INSERT INTO DISPOSITIVI (proprietario) VALUES (%s);"
-fmt_auto = "INSERT INTO AUTOMOBILI (targa, modello, cliente, dispositivo) VALUES ('%s', '%s', %s, %s);"
+fmt_auto = "INSERT INTO AUTOMOBILI (targa, modello, proprietario, dispositivo) VALUES ('%s', '%s', %s, %s);"
 fmt_tragitti = "INSERT INTO TRAGITTI (dispositivo, ingresso, data_ingresso, uscita, data_uscita) VALUES (%s, %s, '%s', %s, '%s');"
 
 def create_client(fp: TextIOWrapper, clienti):
