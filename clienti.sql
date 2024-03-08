@@ -1,4 +1,3 @@
-ALTER SESSION SET NLS_DATE_FORMAT='DD-MM-YYYY';
 INSERT INTO CLIENTI (nome, cognome, email, password, codice_fiscale, data_nascita, luogo_nascita) VALUES ('Prima', 'Bosch', 'PrimaBosch@gmail.com', 'Prima!', 'BSCPRM01D69F448B', '29-04-2001', 'Montecalvo Irpino');
 INSERT INTO CLIENTI (nome, cognome, email, password, codice_fiscale, data_nascita, luogo_nascita) VALUES ('Foriero', 'Fonsati', 'ForieroFonsati@gmail.com', 'Foriero!', 'FNSFRR47E05L248P', '05-05-1947', 'Torrebelvicino');
 INSERT INTO CLIENTI (nome, cognome, email, password, codice_fiscale, data_nascita, luogo_nascita) VALUES ('Massimiana', 'Gionti', 'MassimianaGionti@gmail.com', 'Massimiana!', 'GNTMSM96T31E554X', '31-12-1996', 'Letino');
