@@ -6,6 +6,7 @@ FOR EACH ROW
 DECLARE
 	carta CARTE.id%TYPE;
 	conto CONTI.id%TYPE;
+	nessun_metodo EXCEPTION;
 BEGIN
 	SELECT id INTO carta FROM CARTE
 	WHERE cliente = :new.proprietario
@@ -16,6 +17,10 @@ BEGIN
 	LIMIT 1;
 
 	IF carta IS NULL AND conto IS NULL THEN
-		RAISE_APPLICATION_ERROR(-20004, 'Il cliente non ha nessun metodo di pagamento associato.')
+		RAISE nessun_metodo;
 	END IF;
+
+	EXCEPTION
+		WHEN nessun_metodo THEN
+			RAISE_APPLICATION_ERROR(-20006, 'Il cliente non ha nessun metodo di pagamento associato.')
 END;
