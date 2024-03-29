@@ -6,8 +6,8 @@ Progetto di Basi di Dati 2023/2024.
 - [x] Trigger
 - [x] Stored Procedures
 - [x] Query
-- [ ] Viste
-- [ ] Indici
+- [x] Viste
+- [ ] Indici (?)
 - [ ] Gestione privilegi
 - [ ] Documentazione
 - [ ] Dimensionamento
