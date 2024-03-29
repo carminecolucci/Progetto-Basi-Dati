@@ -8,7 +8,7 @@
 -- CARTE(id*, numero, cvv, data_scadenza, cliente: CLIENTI);
 -- CONTI(id*, iban, numero_conto, cliente: CLIENTI);
 
--- FATTURE(id*, cliente: CLIENTI, data_generazione, importo, paese, via, civico, cap, citta, provincia);
+-- FATTURE(id*, cliente: CLIENTI, data_generazione, importo);
 
 ALTER SESSION SET NLS_DATE_FORMAT='DD-MM-YYYY HH24:MI:SS'
 
@@ -50,12 +50,6 @@ CREATE TABLE FATTURE (
 	cliente INTEGER NOT NULL,
 	data_generazione DATE NOT NULL,
 	importo FLOAT NOT NULL,
-	paese VARCHAR2(30) NOT NULL,
-	via VARCHAR2(60) NOT NULL,
-	civico INTEGER NOT NULL,
-	cap INTEGER NOT NULL,
-	citta VARCHAR2(30) NOT NULL,
-	provincia VARCHAR2(30) NOT NULL,
 
 	CONSTRAINT PK_FATTURE PRIMARY KEY (id),
 	CONSTRAINT FK_FATTURE FOREIGN KEY (cliente) REFERENCES CLIENTI (id)
