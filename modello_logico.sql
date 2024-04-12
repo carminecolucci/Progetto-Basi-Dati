@@ -60,7 +60,7 @@ CREATE TABLE CLIENTI (
 	id INTEGER DEFAULT clienti_id_sequence.nextval,
 	nome VARCHAR2(60) NOT NULL,
 	cognome VARCHAR2(60) NOT NULL,
-	email VARCHAR2(319) NOT NULL,
+	email VARCHAR2(30) NOT NULL,
 	password VARCHAR2(32) NOT NULL,
 	codice_fiscale VARCHAR2(16) NOT NULL,
 	data_nascita DATE NOT NULL,
