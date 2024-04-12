@@ -1,4 +1,4 @@
--- Vista per mostrare le auto di ciascun cliente.
+-- Vista per mostrare le automobili di ciascun cliente.
 
 CREATE MATERIALIZED VIEW AUTO_PER_CLIENTI
 AS

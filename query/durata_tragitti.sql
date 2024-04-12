@@ -1,4 +1,4 @@
--- Calcola la durata di ciascun tragitto per un dato dispositivo.
+-- Per un dato dispositivo, calcola la durata di ciascun tragitto.
 
 SELECT INGRESSI.nome AS INGRESSO, USCITE.nome AS USCITA,
 	TRUNC((to_timestamp(T.data_uscita) - to_timestamp(T.data_ingresso)) / 60, 0) AS DURATA_MINUTI

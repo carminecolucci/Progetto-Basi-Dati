@@ -1,4 +1,5 @@
--- Calcola la fattura per un cliente per i tragitti effettuati in un dato intervallo di tempo.
+-- Dato un cliente, calcola la fattura per i tragitti effettuati da tutti i dispositivi
+-- del cliente in un dato intervallo di tempo.
 
 CREATE OR REPLACE PROCEDURE CALCOLO_FATTURA(
 	Cliente IN CLIENTI.id%TYPE,
