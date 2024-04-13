@@ -12,5 +12,5 @@ BEGIN
 
 	EXCEPTION
 		WHEN carta_scaduta THEN
-			RAISE_APPLICATION_ERROR(-20003, 'Carta di credito scaduta.')
+			RAISE_APPLICATION_ERROR(-20003, 'Carta di credito scaduta.');
 END;

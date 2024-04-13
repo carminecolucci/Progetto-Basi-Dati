@@ -12,5 +12,5 @@ BEGIN
 
 	EXCEPTION
 		WHEN tragitto_invalido THEN
-			RAISE_APPLICATION_ERROR(-20005, 'Tragitto non valido.')
+			RAISE_APPLICATION_ERROR(-20005, 'Tragitto non valido.');
 END;

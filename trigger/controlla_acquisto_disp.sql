@@ -22,5 +22,5 @@ BEGIN
 
 	EXCEPTION
 		WHEN nessun_metodo THEN
-			RAISE_APPLICATION_ERROR(-20006, 'Il cliente non ha nessun metodo di pagamento associato.')
+			RAISE_APPLICATION_ERROR(-20006, 'Il cliente non ha nessun metodo di pagamento associato.');
 END;
