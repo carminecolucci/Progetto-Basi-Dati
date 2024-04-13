@@ -1,10 +1,9 @@
+from codicefiscale import codicefiscale
+import csv
+from datetime import timedelta, datetime
 from io import TextIOWrapper
 import random
-from random import randrange
-from codicefiscale import codicefiscale
-from datetime import timedelta, datetime
 import string
-import csv
 
 NUM_CLIENTI = 1000
 NUM_DISPOSITIVI = 50
@@ -18,7 +17,7 @@ fine_nascite = datetime.strptime('31-12-2005', '%d-%m-%Y')
 inizio_tragitti = datetime.strptime('1-1-2020', '%d-%m-%Y')
 fine_tragitti = datetime.strptime('31-12-2023', '%d-%m-%Y')
 
-fmt_clienti = "INSERT INTO CLIENTI (nome, cognome, email, password, codice_fiscale, data_nascita, luogo_nascita) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s');"
+fmt_clienti = "INSERT INTO CLIENTI (nome, cognome, email, password, cf, data_nascita, luogo_nascita) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s');"
 fmt_dispositivi = "INSERT INTO DISPOSITIVI (proprietario) VALUES (%s);"
 fmt_auto = "INSERT INTO AUTOMOBILI (targa, modello, proprietario, dispositivo) VALUES ('%s', '%s', %s, %s);"
 fmt_tragitti = "INSERT INTO TRAGITTI (dispositivo, ingresso, data_ingresso, uscita, data_uscita) VALUES (%s, %s, '%s', %s, '%s');"
@@ -33,7 +32,7 @@ def create_client(fp: TextIOWrapper, clienti):
 		data_nascita = random_date(inizio_nascite, fine_nascite)
 		try:
 			cf = codicefiscale.encode(cognome, nome, random.choice(['f', 'm']), data_nascita, luogo_nascita)
-		except:
+		except ValueError:
 			continue
 		print(fmt_clienti % (nome, cognome, email, password, cf, data_nascita, luogo_nascita.replace("'", "''")), file=fp)
 
@@ -41,7 +40,7 @@ def random_date(start: datetime, end: datetime) -> datetime:
 	""" Returns a random date "%d-%m-%Y" between start and end. """
 	delta = end - start
 	int_delta = delta.days
-	random_day = randrange(int_delta)
+	random_day = random.randrange(int_delta)
 	date = start + timedelta(days=random_day)
 	return date
 
@@ -55,7 +54,7 @@ def random_datetime(start: datetime, end: datetime) -> datetime:
 	""" Returns a random date "%d-%m-%Y %H:%M:%S" between start and end. """
 	delta = end - start
 	int_delta = (delta.days * 24 * 60 * 60) + delta.seconds
-	random_second = randrange(int_delta)
+	random_second = random.randrange(int_delta)
 	date = start + timedelta(seconds=random_second)
 	return date
 
@@ -66,8 +65,6 @@ def datetime_to_str(time: datetime) -> str:
 	return time.strftime("%d-%m-%Y %H:%M:%S")
 
 def genera_clienti():
-	# CLIENTI(DEFAULT, nome, cognome, email, password, cf, data_nascita, luogo_nascita, carta: CARTE, conto: CONTI);
-
 	nomi = []
 	with open("wordlists/nomi.txt") as nomi_fp:
 		nomi = [nome.strip() for nome in nomi_fp.readlines()]
@@ -94,14 +91,11 @@ def genera_targa():
 	return targa
 
 def genera_dispositivi():
-	# DISPOSITIVI(id*, num_veicoli, proprietario: CLIENTI);
 	with open("dispositivi.sql", "w") as fp:
 		for i in range(1, NUM_DISPOSITIVI + 1):
 			print(fmt_dispositivi % (i), file=fp)
 
 def genera_auto():
-	# AUTOMOBILI(targa*, modello, cliente: CLIENTI, dispositivo: DISPOSITIVI);
-
 	with open("auto.csv") as file_csv:
 		reader = csv.reader(file_csv)
 		dati_letti = list(reader)
@@ -131,10 +125,9 @@ def genera_auto():
 			auto_per_disp[disp - 1] += 1
 			print(fmt_auto % (targa, random.choice(modelli), random.randint(1, 100), disp), file=fp)
 
-
 def genera_tragitti():
 	with open("tragitti.sql", "w") as fp:
-		for i in range(NUM_TRAGITTI):
+		for _ in range(NUM_TRAGITTI):
 			disp = random.randint(1, NUM_DISPOSITIVI)
 			ingresso = random.randint(1, NUM_CASELLI)
 			uscita = random.randint(1, NUM_CASELLI)
@@ -147,7 +140,7 @@ def genera_tragitti():
 			print(fmt_tragitti % (disp, ingresso, datetime_to_str(data_ora_ingresso), uscita, datetime_to_str(data_ora_uscita)), file=fp)
 
 if __name__ == "__main__":
-	# genera_clienti()
-	# genera_dispositivi()
-	# genera_auto()
+	genera_clienti()
+	genera_dispositivi()
+	genera_auto()
 	genera_tragitti()
