@@ -1,4 +1,4 @@
--- AUTOMOBILI(targa*, modello, cliente: CLIENTI, dispositivo: DISPOSITIVI);
+-- AUTOMOBILI(targa*, modello, proprietario: CLIENTI, dispositivo: DISPOSITIVI);
 -- CLIENTI(id*, nome, cognome, email, password, cf, data_nascita, luogo_nascita);
 -- DISPOSITIVI(id*, num_veicoli, proprietario: CLIENTI);
 
