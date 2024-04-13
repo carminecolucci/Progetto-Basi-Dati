@@ -7,8 +7,8 @@ Progetto di Basi di Dati 2023/2024.
 - [x] Stored Procedures
 - [x] Query
 - [x] Viste
-- [ ] Indici (?)
-- [ ] Gestione privilegi
+- [x] Indici
+- [x] Gestione privilegi
 - [ ] Documentazione
-- [ ] Dimensionamento
+- [x] Dimensionamento
 - [ ] Sito (?)
