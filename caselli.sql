@@ -1,8 +1,8 @@
-INSERT INTO CASELLI (nome, numero) VALUES ('agnano', 1);
-INSERT INTO CASELLI (nome, numero) VALUES ('fuorigrotta', 1);
-INSERT INTO CASELLI (nome, numero) VALUES ('vomero', 1);
-INSERT INTO CASELLI (nome, numero) VALUES ('camaldoli', 1);
-INSERT INTO CASELLI (nome, numero) VALUES ('capodimonte', 1);
-INSERT INTO CASELLI (nome, numero) VALUES ('arenella', 1);
-INSERT INTO CASELLI (nome, numero) VALUES ('capodichino', 1);
-INSERT INTO CASELLI (nome, numero) VALUES ('corso malta', 1);
+INSERT INTO CASELLI (nome, numero) VALUES ('Agnano', 1);
+INSERT INTO CASELLI (nome, numero) VALUES ('Fuorigrotta', 1);
+INSERT INTO CASELLI (nome, numero) VALUES ('Vomero', 1);
+INSERT INTO CASELLI (nome, numero) VALUES ('Camaldoli', 1);
+INSERT INTO CASELLI (nome, numero) VALUES ('Capodimonte', 1);
+INSERT INTO CASELLI (nome, numero) VALUES ('Arenella', 1);
+INSERT INTO CASELLI (nome, numero) VALUES ('Capodichino', 1);
+INSERT INTO CASELLI (nome, numero) VALUES ('Corso Malta', 1);
