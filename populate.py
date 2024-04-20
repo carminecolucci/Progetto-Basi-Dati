@@ -17,7 +17,7 @@ fine_nascite = datetime.strptime('31-12-2005', '%d-%m-%Y')
 inizio_tragitti = datetime.strptime('1-1-2020', '%d-%m-%Y')
 fine_tragitti = datetime.strptime('31-12-2023', '%d-%m-%Y')
 
-fmt_clienti = "INSERT INTO CLIENTI (nome, cognome, email, password, cf, data_nascita, luogo_nascita) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s');"
+fmt_clienti = "INSERT INTO CLIENTI (nome, cognome, email, password, codice_fiscale, data_nascita, luogo_nascita) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s');"
 fmt_dispositivi = "INSERT INTO DISPOSITIVI (proprietario) VALUES (%s);"
 fmt_auto = "INSERT INTO AUTOMOBILI (targa, modello, proprietario, dispositivo) VALUES ('%s', '%s', %s, %s);"
 fmt_tragitti = "INSERT INTO TRAGITTI (dispositivo, ingresso, data_ingresso, uscita, data_uscita) VALUES (%s, %s, '%s', %s, '%s');"
@@ -109,9 +109,7 @@ def genera_auto():
 		targa_auto = genera_targa()
 		targhe.add(targa_auto)
 
-	auto_per_disp = []
-	for _ in range(NUM_DISPOSITIVI):
-		auto_per_disp.append(0)
+	auto_per_disp = [0 for _ in range(NUM_DISPOSITIVI)]
 
 	with open("automobili.sql", "w") as fp:
 		for targa in targhe:
