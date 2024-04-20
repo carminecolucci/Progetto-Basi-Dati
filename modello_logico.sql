@@ -1,5 +1,5 @@
 -- AUTOMOBILI(targa*, modello, proprietario: CLIENTI, dispositivo: DISPOSITIVI);
--- CLIENTI(id*, nome, cognome, email, password, cf, data_nascita, luogo_nascita);
+-- CLIENTI(id*, nome, cognome, email, password, codice_fiscale, data_nascita, luogo_nascita);
 -- DISPOSITIVI(id*, num_veicoli, proprietario: CLIENTI);
 
 -- TRAGITTI(id*, dispositivo*: DISPOSITIVI, ingresso: CASELLI, data_ingresso, uscita: CASELLI, data_uscita):
