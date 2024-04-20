@@ -1,4 +1,4 @@
-from codicefiscale import codicefiscale
+# from codicefiscale import codicefiscale
 import csv
 from datetime import timedelta, datetime
 from io import TextIOWrapper
@@ -10,6 +10,7 @@ NUM_DISPOSITIVI = 50
 NUM_AUTOMOBILI = 40
 NUM_CASELLI = 8
 NUM_TRAGITTI = 200
+NUM_CARTE = 50
 
 inizio_nascite = datetime.strptime('1-1-1940', '%d-%m-%Y')
 fine_nascite = datetime.strptime('31-12-2005', '%d-%m-%Y')
@@ -17,10 +18,27 @@ fine_nascite = datetime.strptime('31-12-2005', '%d-%m-%Y')
 inizio_tragitti = datetime.strptime('1-1-2020', '%d-%m-%Y')
 fine_tragitti = datetime.strptime('31-12-2023', '%d-%m-%Y')
 
+inizio_scadenze = datetime.strptime('1-1-2025', '%d-%m-%Y')
+fine_scadenze = datetime.strptime('31-12-2030', '%d-%m-%Y')
+
 fmt_clienti = "INSERT INTO CLIENTI (nome, cognome, email, password, codice_fiscale, data_nascita, luogo_nascita) VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s');"
 fmt_dispositivi = "INSERT INTO DISPOSITIVI (proprietario) VALUES (%s);"
 fmt_auto = "INSERT INTO AUTOMOBILI (targa, modello, proprietario, dispositivo) VALUES ('%s', '%s', %s, %s);"
 fmt_tragitti = "INSERT INTO TRAGITTI (dispositivo, ingresso, data_ingresso, uscita, data_uscita) VALUES (%s, %s, '%s', %s, '%s');"
+fmt_carte = "INSERT INTO CARTE (numero, cvv, data_scadenza, cliente) VALUES (%s, %s, '%s', %s);"
+fmt_conti = "INSERT INTO CONTI (iban, numero_conto, cliente) VALUES (%s, %s, %s)"
+
+def genera_carte():
+	start_number = 1000_0000_0000_0000
+	end_number = 9999_9999_9999_9999
+	with open("carte.sql", mode="w") as f:
+		for i in range(NUM_CARTE):
+			numero = random.randint(start_number, end_number)
+			cvv = random.randint(100, 999)
+			data_scadenza = random_date_str(inizio_scadenze, fine_scadenze)
+			cliente = i # così assegnamo le carte ai primi i clienti
+			print(fmt_carte % (numero, cvv, data_scadenza, cliente), file=f)
+
 
 def create_client(fp: TextIOWrapper, clienti):
 	for cliente in clienti:
@@ -138,7 +156,8 @@ def genera_tragitti():
 			print(fmt_tragitti % (disp, ingresso, datetime_to_str(data_ora_ingresso), uscita, datetime_to_str(data_ora_uscita)), file=fp)
 
 if __name__ == "__main__":
-	genera_clienti()
-	genera_dispositivi()
-	genera_auto()
-	genera_tragitti()
+	# genera_clienti()
+	# genera_dispositivi()
+	# genera_auto()
+	# genera_tragitti()
+	genera_carte()
