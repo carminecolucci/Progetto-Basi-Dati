@@ -1,4 +1,4 @@
-# from codicefiscale import codicefiscale
+from codicefiscale import codicefiscale
 import csv
 from datetime import timedelta, datetime
 from io import TextIOWrapper
@@ -36,7 +36,7 @@ def genera_carte():
 			numero = random.randint(start_number, end_number)
 			cvv = random.randint(100, 999)
 			data_scadenza = random_date_str(inizio_scadenze, fine_scadenze)
-			cliente = i # così assegnamo le carte ai primi i clienti
+			cliente = i + 1 # così assegnamo le carte ai primi i clienti
 			print(fmt_carte % (numero, cvv, data_scadenza, cliente), file=f)
 
 
@@ -156,8 +156,8 @@ def genera_tragitti():
 			print(fmt_tragitti % (disp, ingresso, datetime_to_str(data_ora_ingresso), uscita, datetime_to_str(data_ora_uscita)), file=fp)
 
 if __name__ == "__main__":
-	# genera_clienti()
-	# genera_dispositivi()
-	# genera_auto()
-	# genera_tragitti()
+	genera_clienti()
+	genera_dispositivi()
+	genera_auto()
+	genera_tragitti()
 	genera_carte()
