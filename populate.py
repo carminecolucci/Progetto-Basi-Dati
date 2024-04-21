@@ -1,9 +1,10 @@
-from codicefiscale import codicefiscale
 import csv
-from datetime import timedelta, datetime
-from io import TextIOWrapper
 import random
 import string
+
+from codicefiscale import codicefiscale
+from io import TextIOWrapper
+from utils import *
 
 NUM_CLIENTI = 1000
 NUM_DISPOSITIVI = 500
@@ -26,19 +27,6 @@ fmt_dispositivi = "INSERT INTO DISPOSITIVI (proprietario) VALUES (%s);"
 fmt_auto = "INSERT INTO AUTOMOBILI (targa, modello, proprietario, dispositivo) VALUES ('%s', '%s', %s, %s);"
 fmt_tragitti = "INSERT INTO TRAGITTI (dispositivo, ingresso, data_ingresso, uscita, data_uscita) VALUES (%s, %s, '%s', %s, '%s');"
 fmt_carte = "INSERT INTO CARTE (numero, cvv, data_scadenza, cliente) VALUES (%s, %s, '%s', %s);"
-fmt_conti = "INSERT INTO CONTI (iban, numero_conto, cliente) VALUES (%s, %s, %s)"
-
-def genera_carte():
-	start_number = 1000_0000_0000_0000
-	end_number = 9999_9999_9999_9999
-	with open("carte.sql", mode="w") as f:
-		for i in range(NUM_CARTE):
-			numero = random.randint(start_number, end_number)
-			cvv = random.randint(100, 999)
-			data_scadenza = random_date_str(inizio_scadenze, fine_scadenze)
-			cliente = i + 1 # così assegnamo le carte ai primi i clienti
-			print(fmt_carte % (numero, cvv, data_scadenza, cliente), file=f)
-
 
 def create_client(fp: TextIOWrapper, clienti):
 	for cliente in clienti:
@@ -53,34 +41,6 @@ def create_client(fp: TextIOWrapper, clienti):
 		except ValueError:
 			continue
 		print(fmt_clienti % (nome, cognome, email, password, cf, data_nascita, luogo_nascita.replace("'", "''")), file=fp)
-
-def random_date(start: datetime, end: datetime) -> datetime:
-	""" Returns a random date "%d-%m-%Y" between start and end. """
-	delta = end - start
-	int_delta = delta.days
-	random_day = random.randrange(int_delta)
-	date = start + timedelta(days=random_day)
-	return date
-
-def random_date_str(start: datetime, end: datetime) -> str:
-	return random_date(start, end).strftime("%d-%m-%Y")
-
-def date_to_str(date: datetime) -> str:
-	return date.strftime("%d-%m-%Y")
-
-def random_datetime(start: datetime, end: datetime) -> datetime:
-	""" Returns a random date "%d-%m-%Y %H:%M:%S" between start and end. """
-	delta = end - start
-	int_delta = (delta.days * 24 * 60 * 60) + delta.seconds
-	random_second = random.randrange(int_delta)
-	date = start + timedelta(seconds=random_second)
-	return date
-
-def random_datetime_str(start: datetime, end: datetime) -> str:
-	return random_datetime(start, end).strftime("%d-%m-%Y %H:%M:%S")
-
-def datetime_to_str(time: datetime) -> str:
-	return time.strftime("%d-%m-%Y %H:%M:%S")
 
 def genera_clienti():
 	nomi = []
@@ -102,16 +62,16 @@ def genera_clienti():
 	with open("clienti.sql", "w") as fp:
 		create_client(fp, clienti)
 
+def genera_dispositivi():
+	with open("dispositivi.sql", "w") as fp:
+		for i in range(1, NUM_DISPOSITIVI + 1):
+			print(fmt_dispositivi % (i), file=fp)
+
 def genera_targa():
 	lettere = ''.join(random.choices(string.ascii_uppercase, k=2))
 	numeri = ''.join(random.choices(string.digits, k=3))
 	targa = f'{lettere}{numeri}{lettere}'
 	return targa
-
-def genera_dispositivi():
-	with open("dispositivi.sql", "w") as fp:
-		for i in range(1, NUM_DISPOSITIVI + 1):
-			print(fmt_dispositivi % (i), file=fp)
 
 def genera_auto():
 	with open("auto.csv") as file_csv:
@@ -154,6 +114,17 @@ def genera_tragitti():
 			data_ora_uscita = data_ora_ingresso + timedelta(hours=1)
 
 			print(fmt_tragitti % (disp, ingresso, datetime_to_str(data_ora_ingresso), uscita, datetime_to_str(data_ora_uscita)), file=fp)
+
+def genera_carte():
+	start_number = 1000_0000_0000_0000
+	end_number = 9999_9999_9999_9999
+	with open("carte.sql", mode="w") as fp:
+		for i in range(NUM_CARTE):
+			numero = random.randint(start_number, end_number)
+			cvv = random.randint(100, 999)
+			data_scadenza = random_date_str(inizio_scadenze, fine_scadenze)
+			cliente = i + 1 # così assegnamo le carte ai primi i clienti
+			print(fmt_carte % (numero, cvv, data_scadenza, cliente), file=fp)
 
 if __name__ == "__main__":
 	genera_clienti()
