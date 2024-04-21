@@ -9,6 +9,6 @@ Progetto di Basi di Dati 2023/2024.
 - [x] Viste
 - [x] Indici
 - [x] Gestione privilegi
-- [ ] Documentazione
+- [x] Documentazione
 - [x] Dimensionamento
-- [ ] Sito (?)
+- [x] Sito
