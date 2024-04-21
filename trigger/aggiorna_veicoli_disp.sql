@@ -8,14 +8,14 @@ DECLARE
 	current INTEGER;
 	dispositivo_pieno EXCEPTION;
 BEGIN
-	SELECT NUMERO_VEICOLI INTO current FROM DISPOSITIVI
+	SELECT numero_veicoli INTO current FROM DISPOSITIVI
 	WHERE id = :new.dispositivo;
 
 	IF current >= 2 THEN
 		RAISE dispositivo_pieno;
 	END IF;
 
-	UPDATE DISPOSITIVI SET NUMERO_VEICOLI = current + 1
+	UPDATE DISPOSITIVI SET numero_veicoli = current + 1
 	WHERE id = :new.dispositivo;
 
 	EXCEPTION
