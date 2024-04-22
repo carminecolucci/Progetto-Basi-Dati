@@ -12,6 +12,7 @@ NUM_AUTOMOBILI = 600
 NUM_CASELLI = 8
 NUM_TRAGITTI = 200
 NUM_CARTE = 50
+NUM_CONTI = 50
 
 inizio_nascite = datetime.strptime('1-1-1940', '%d-%m-%Y')
 fine_nascite = datetime.strptime('31-12-2005', '%d-%m-%Y')
@@ -27,6 +28,7 @@ fmt_dispositivi = "INSERT INTO DISPOSITIVI (proprietario) VALUES (%s);"
 fmt_auto = "INSERT INTO AUTOMOBILI (targa, modello, proprietario, dispositivo) VALUES ('%s', '%s', %s, %s);"
 fmt_tragitti = "INSERT INTO TRAGITTI (dispositivo, ingresso, data_ingresso, uscita, data_uscita) VALUES (%s, %s, '%s', %s, '%s');"
 fmt_carte = "INSERT INTO CARTE (numero, cvv, data_scadenza, cliente) VALUES (%s, %s, '%s', %s);"
+fmt_conti = "INSERT INTO CONTI (iban, numero_conto, cliente) VALUES ('%s', '%s', %s);"
 
 def create_client(fp: TextIOWrapper, clienti):
 	for cliente in clienti:
@@ -116,19 +118,26 @@ def genera_tragitti():
 			print(fmt_tragitti % (disp, ingresso, datetime_to_str(data_ora_ingresso), uscita, datetime_to_str(data_ora_uscita)), file=fp)
 
 def genera_carte():
-	start_number = 1000_0000_0000_0000
-	end_number = 9999_9999_9999_9999
 	with open("carte.sql", mode="w") as fp:
 		for i in range(NUM_CARTE):
-			numero = random.randint(start_number, end_number)
+			numero = "".join(["{}".format(random.randint(0, 9)) for _ in range(16)])
 			cvv = random.randint(100, 999)
 			data_scadenza = random_date_str(inizio_scadenze, fine_scadenze)
 			cliente = i + 1 # così assegnamo le carte ai primi i clienti
 			print(fmt_carte % (numero, cvv, data_scadenza, cliente), file=fp)
 
+def genera_conti():
+	with open("conti.sql", "w") as fp:
+		for i in range(NUM_CONTI):
+			iban = "IT" + "".join(["{}".format(random.randint(0, 9)) for _ in range(32)])
+			numero_conto = iban[2:14]
+			cliente = NUM_CARTE + 1 + i
+			print(fmt_conti % (iban, numero_conto, cliente), file=fp)
+
 if __name__ == "__main__":
-	genera_clienti()
-	genera_dispositivi()
-	genera_auto()
-	genera_tragitti()
-	genera_carte()
+	# genera_clienti()
+	# genera_dispositivi()
+	# genera_auto()
+	# genera_tragitti()
+	# genera_carte()
+	genera_conti()
