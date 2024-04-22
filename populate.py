@@ -135,9 +135,9 @@ def genera_conti():
 			print(fmt_conti % (iban, numero_conto, cliente), file=fp)
 
 if __name__ == "__main__":
-	# genera_clienti()
-	# genera_dispositivi()
-	# genera_auto()
-	# genera_tragitti()
-	# genera_carte()
+	genera_clienti()
+	genera_dispositivi()
+	genera_auto()
+	genera_tragitti()
+	genera_carte()
 	genera_conti()
